@@ -25,7 +25,7 @@ Head-controlled mouse with **blink-to-click** and **voice typing**. Use your fac
 ```
 SmartAssist/
 ├── main.py                 # Entry point: run the app
-├── requirements.txt        # Runtime dependencies
+├── requirements.txt        # All dependencies (one install for all features)
 ├── requirements-dev.txt    # Dev dependencies (pytest)
 ├── README.md
 ├── smartassist/            # Main package
@@ -71,11 +71,20 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install dependencies (one command for all features)
 
 ```bash
 pip install -r requirements.txt
 ```
+
+**If PyAudio fails on macOS** (e.g. “failed to build wheel for pyaudio”): install PortAudio first, then run the same command again:
+
+```bash
+brew install portaudio
+pip install -r requirements.txt
+```
+
+**On Linux** (Debian/Ubuntu), if PyAudio fails: `sudo apt install portaudio19-dev` then `pip install -r requirements.txt` again.
 
 ### 4. Run the app
 
@@ -162,16 +171,12 @@ If the app cannot download the model (e.g. no internet or firewall), download it
 | **Double-blink not clicking** | Blink twice quickly (within about 0.5 s). Adjust distance from the camera if needed. |
 | **Voice not working** | Check microphone permissions and that you’re online (Google Speech). Disable with `SMARTASSIST_VOICE=0` if you don’t need it. |
 | **Wrong camera opens** | Set `SMARTASSIST_CAMERA=1` (or another index) before running. |
-| **PyAudio / microphone errors on Linux** | Install portaudio: `sudo apt install portaudio19-dev` (Debian/Ubuntu) then `pip install pyaudio`. |
+| **PyAudio / microphone errors on Linux** | `sudo apt install portaudio19-dev` (Debian/Ubuntu), then `pip install -r requirements.txt` again. |
+| **Failed to build wheel for pyaudio (macOS)** | Run `brew install portaudio`, then `pip install -r requirements.txt` again. |
 
-## Requirements (from requirements.txt)
+## Requirements (all in requirements.txt)
 
-- **opencv-python** – camera and display
-- **mediapipe** – face landmark detection (0.10+)
-- **pyautogui** – mouse movement and typing
-- **SpeechRecognition** – voice recognition
-- **pyaudio** – microphone (optional if voice disabled)
-- **numpy** – numerical operations
+opencv-python, mediapipe, numpy, pyautogui, SpeechRecognition, pyaudio — one install for head tracking, blink-to-click, and voice typing.
 
 ## License
 

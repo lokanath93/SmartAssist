@@ -1,5 +1,5 @@
-# SmartAssist - works on Windows, macOS, and Linux
-# Install: pip install -r requirements.txt
+# SmartAssist - all features (head, blink, voice). Install: pip install -r requirements.txt
+# On macOS if PyAudio fails to build: run "brew install portaudio" then pip install again.
 
 opencv-python>=4.5.0
 mediapipe>=0.10.0
