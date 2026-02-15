@@ -20,7 +20,31 @@ Head-controlled mouse with **blink-to-click** and **voice typing**. Use your fac
 - **GitHub:** [https://github.com/lokanath93/SmartAssist](https://github.com/lokanath93/SmartAssist)  
   Clone with: `git clone https://github.com/lokanath93/SmartAssist.git`
 
----
+## Project structure
+
+```
+SmartAssist/
+├── main.py                 # Entry point: run the app
+├── requirements.txt        # Runtime dependencies
+├── requirements-dev.txt    # Dev dependencies (pytest)
+├── README.md
+├── smartassist/            # Main package
+│   ├── __init__.py
+│   ├── config.py           # Paths, env vars, constants
+│   ├── detector.py         # Face landmarker model, EAR helpers
+│   ├── camera.py           # Camera open, frame read
+│   ├── controller.py       # Mouse + blink state (head → cursor, double-blink → click)
+│   ├── voice.py            # Voice command thread ("type …")
+│   └── app.py              # Main loop: capture, detect, control, display
+├── tests/
+│   ├── conftest.py         # Pytest fixtures (mock landmarks)
+│   ├── test_config.py
+│   ├── test_detector.py
+│   ├── test_controller.py
+│   ├── test_voice.py
+│   └── test_camera.py
+└── models/                 # Face Landmarker model (downloaded on first run)
+```
 
 ## Quick start (any laptop)
 
@@ -62,6 +86,15 @@ python main.py
 - **First run:** The app will download the Face Landmarker model (~10 MB) once. Keep the internet on.
 - A window will open showing your face. Move your head to move the cursor; **double-blink** to click.
 - Press **ESC** to exit.
+
+### 5. Run tests (optional)
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/ -v
+```
+
+Tests cover config, detector (EAR math), controller (mouse/clamp/blink), voice command parsing, and camera helpers. No webcam or microphone is required to run tests.
 
 ## Usage
 
@@ -139,33 +172,6 @@ If the app cannot download the model (e.g. no internet or firewall), download it
 - **SpeechRecognition** – voice recognition
 - **pyaudio** – microphone (optional if voice disabled)
 - **numpy** – numerical operations
-
-## Pushing to GitHub (for maintainers)
-
-If you have a local copy and want to push to [github.com/lokanath93](https://github.com/lokanath93):
-
-1. **Create the repo on GitHub** (one-time)  
-   - Go to [https://github.com/new](https://github.com/new)  
-   - Repository name: `SmartAssist`  
-   - Do **not** add a README, .gitignore, or license (they already exist locally)  
-   - Click **Create repository**
-
-2. **Commit and push from your machine** (in a terminal, from the project folder):
-
-   ```bash
-   cd /path/to/SmartAssist
-
-   git add .gitignore README.md requirements.txt main.py push_to_github.sh
-   git commit -m "Initial commit: SmartAssist head mouse blink click voice typing"
-
-   git remote add origin https://github.com/lokanath93/SmartAssist.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-   Or run the script (macOS/Linux): `./push_to_github.sh`
-
-   Use your GitHub username and a [personal access token](https://github.com/settings/tokens) (or SSH key) when prompted for password.
 
 ## License
 
