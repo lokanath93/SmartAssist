@@ -1,9 +1,0 @@
-# SmartAssist - all features (head, blink, voice). Install: pip install -r requirements.txt
-# On macOS if PyAudio fails to build: run "brew install portaudio" then pip install again.
-
-opencv-python>=4.5.0
-mediapipe>=0.10.0
-numpy>=1.19.0
-pyautogui>=0.9.50
-SpeechRecognition>=3.8.0
-pyaudio>=0.2.11
